@@ -24,23 +24,30 @@ const Comments = () => {
     setIsAddingComment(true);
   };
 
-  let comments;
-
   const addedCommentHandler = useCallback(() => {
     sendRequest(quoteId);
-  }, [sendRequest, quoteId])
+  }, [sendRequest, quoteId]);
 
-    if (status === "completed" && loadedComments && loadedComments.length > 0) {
-      comments = <CommentsList comments={loadedComments} />;
-    }
+  let comments;
 
-    if (
-      status === "completed" &&
-      (!loadedComments || loadedComments.length === 0)
-    ) {
-      comments = <p className="centered">No Comments were added yet ! </p>;
-    }
-  };
+  if (status === "pending") {
+    comments = (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (status === "completed" && loadedComments && loadedComments.length > 0) {
+    comments = <CommentsList comments={loadedComments} />;
+  }
+
+  if (
+    status === "completed" &&
+    (!loadedComments || loadedComments.length === 0)
+  ) {
+    comments = <p className="centered">No Comments were added yet! </p>;
+  }
 
   return (
     <section className={classes.comments}>
@@ -57,5 +64,6 @@ const Comments = () => {
     </section>
   );
 };
+
 
 export default Comments;
