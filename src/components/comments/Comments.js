@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import classes from "./Comments.module.css";
@@ -26,14 +26,9 @@ const Comments = () => {
 
   let comments;
 
-  const addedCommentHandler = () => {
-    if (status === "pending") {
-      comments = (
-        <div className="centered">
-          <LoadingSpinner />
-        </div>
-      );
-    }
+  const addedCommentHandler = useCallback(() => {
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId])
 
     if (status === "completed" && loadedComments && loadedComments.length > 0) {
       comments = <CommentsList comments={loadedComments} />;
