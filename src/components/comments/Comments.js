@@ -12,9 +12,9 @@ const Comments = () => {
   const [isAddingComment, setIsAddingComment] = useState(false);
   const params = useParams();
 
-  const { sendRequest, status, data: loadedComments } = useHttp(getAllComments);
-
   const { quoteId } = params;
+
+  const { sendRequest, status, data: loadedComments } = useHttp(getAllComments);
 
   useEffect(() => {
     sendRequest(quoteId);

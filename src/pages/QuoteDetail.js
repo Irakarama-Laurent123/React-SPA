@@ -11,6 +11,8 @@ const QuoteDetail = () => {
   const match = useRouteMatch();
   const params = useParams();
 
+  console.log(match);
+
   const { quoteId } = params;
 
   const {
